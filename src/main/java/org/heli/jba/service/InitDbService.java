@@ -54,11 +54,11 @@ public class InitDbService {
 			userAdmin.setRoles(roles);
 			userRepository.save(userAdmin);
 
-			Blog tomcatExpert = new Blog();
-			tomcatExpert.setName("Tomcat");
-			tomcatExpert.setUrl("http://www.tomcatexpert.com/blog/feed");
-			tomcatExpert.setUser(userAdmin);
-			blogRepository.save(tomcatExpert);
+			Blog worldNews = new Blog();
+			worldNews.setName("World New");
+			worldNews.setUrl("http://news.feedzilla.com/en_us/headlines/top-news/world-news.rss");
+			worldNews.setUser(userAdmin);
+			blogRepository.save(worldNews);
 		}
 
 	}
