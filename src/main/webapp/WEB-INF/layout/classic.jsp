@@ -6,7 +6,8 @@
 <head>
 
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -20,6 +21,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js" ></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><tiles:getAsString name="title"></tiles:getAsString></title>
@@ -43,16 +46,21 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li class="${current == 'index' ? 'active' : ''}">
-							<a href="<spring:url value="/" />">Home</a></li>
+						<li class="${current == 'index' ? 'active' : ''}"><a
+							href="<spring:url value="/" />">Home</a></li>
 						<security:authorize access="hasRole('ROLE_ADMIN')">
-							<li class="${current == 'users' ? 'active' : ''}"><a href="<spring:url value="/users.html" />">Users</a></li>
+							<li class="${current == 'users' ? 'active' : ''}"><a
+								href="<spring:url value="/users.html" />">Users</a></li>
 						</security:authorize>
-						<li class="${current == 'register' ? 'active' : ''}"><a	href="<spring:url value="/register.html" />">Register</a></li>
+						<li class="${current == 'register' ? 'active' : ''}"><a
+							href="<spring:url value="/register.html" />">Register</a></li>
 						<security:authorize access="!isAuthenticated()">
-							<li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
+							<li class="${current == 'login' ? 'active' : ''}"><a
+								href="<spring:url value="/login.html" />">Login</a></li>
 						</security:authorize>
 						<security:authorize access="isAuthenticated()">
+							<li class="${current == 'account' ? 'active' : ''}"><a
+								href="<spring:url value="/account.html" />">My account</a></li>
 							<li><a href="<spring:url value="/logout" />">Logout</a></li>
 						</security:authorize>
 					</ul>

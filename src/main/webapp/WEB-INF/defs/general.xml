@@ -16,12 +16,17 @@
   <definition name="users" extends="common">
     <put-attribute name="title" value="Users" />
     <put-attribute name="body" value="/WEB-INF/jsp/users.jsp" />
-  	<put-attribute name="current" value="users"></put-attribute>
+  	<put-attribute name="current" value="users" />
   </definition>
    <definition name="user-detail" extends="common">
     <put-attribute name="title" value="User detail" />
     <put-attribute name="body" value="/WEB-INF/jsp/user-detail.jsp" />
-  	<put-attribute name="current" value="user-detail"></put-attribute>
+  	<put-attribute name="current" value="users"></put-attribute>
+  </definition>
+  <definition name="user-account" extends="common">
+    <put-attribute name="title" value="User account" />
+    <put-attribute name="body" value="/WEB-INF/jsp/user-account.jsp" />
+  	<put-attribute name="current" value="account" />
   </definition>
   <definition name="user-register" extends="common">
     <put-attribute name="title" value="User register" />

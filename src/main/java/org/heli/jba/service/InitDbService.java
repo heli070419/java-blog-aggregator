@@ -16,9 +16,8 @@ import org.heli.jba.repository.ItemRepository;
 import org.heli.jba.repository.RoleRepository;
 import org.heli.jba.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-
 
 @Transactional
 @Service
@@ -32,44 +31,35 @@ public class InitDbService {
 	private BlogRepository blogRepository;
 	@Autowired
 	private ItemRepository itemRepository;
-	
+
 	@PostConstruct
-	public void init(){
-		Role roleUser = new Role();
-		roleUser.setName("ROLE_USER");
-		roleRepository.save(roleUser);
-		
-		Role roleAdmin = new Role();
-		roleAdmin.setName("ROLE_ADMIN");
-		roleRepository.save(roleAdmin);
-		
-		User userAdmin = new User();
-		userAdmin.setName("admin");
-		List<Role> roles = new ArrayList<Role>();
-		roles.add(roleUser);
-		roles.add(roleAdmin);
-		userAdmin.setRoles(roles);
-		userRepository.save(userAdmin);
-		
-		Blog blogYoutube = new Blog();
-		blogYoutube.setName("Youtube");
-		blogYoutube.setUrl("https://www.youtube.com");
-		blogYoutube.setUser(userAdmin);
-		blogRepository.save(blogYoutube);
-		
-		Item item1 = new Item();
-		item1.setBlog(blogYoutube);
-		item1.setTitle("first");
-		item1.setLink("https://www.youtube.com");
-		item1.setPublishedDate(new Date());
-		itemRepository.save(item1);
-		
-		Item item2 = new Item();
-		item2.setBlog(blogYoutube);
-		item2.setTitle("second");
-		item2.setLink("https://www.youtube.com");
-		item2.setPublishedDate(new Date());
-		itemRepository.save(item2);
-		
+	public void init() {
+		if (roleRepository.findByName("ROLE_ADMIN") == null) {
+			Role roleUser = new Role();
+			roleUser.setName("ROLE_USER");
+			roleRepository.save(roleUser);
+
+			Role roleAdmin = new Role();
+			roleAdmin.setName("ROLE_ADMIN");
+			roleRepository.save(roleAdmin);
+
+			User userAdmin = new User();
+			userAdmin.setName("admin");
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			userAdmin.setPassword(encoder.encode("admin"));
+			userAdmin.setEnabled(true);
+			List<Role> roles = new ArrayList<Role>();
+			roles.add(roleUser);
+			roles.add(roleAdmin);
+			userAdmin.setRoles(roles);
+			userRepository.save(userAdmin);
+
+			Blog tomcatExpert = new Blog();
+			tomcatExpert.setName("Tomcat");
+			tomcatExpert.setUrl("http://www.tomcatexpert.com/blog/feed");
+			tomcatExpert.setUser(userAdmin);
+			blogRepository.save(tomcatExpert);
+		}
+
 	}
 }
